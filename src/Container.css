@@ -2,3 +2,9 @@
   background-color: #E9E9EF;
   padding: 5% 2%;
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}

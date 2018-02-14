@@ -1,0 +1,10 @@
+.langbutton {
+  font-weight: bold;
+  font-size: 1vw;
+  border-radius: 6px;
+  padding: 1.8%;
+  background-color: #EBE9E9;
+  align-self: center;
+  position: absolute;
+  right: 5%;
+}
