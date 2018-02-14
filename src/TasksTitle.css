@@ -1,0 +1,9 @@
+.taskstitle {
+  width: 100%;
+  margin-top: 4%;
+  font-size: 1.5vw;
+  padding: 0.5vw;
+  box-sizing: border-box;
+  border: 1px solid #757575;
+  border-radius: 2px;
+}
