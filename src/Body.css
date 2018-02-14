@@ -1,0 +1,7 @@
+.body {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid #757575;
+}

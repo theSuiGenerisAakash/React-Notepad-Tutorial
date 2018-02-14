@@ -5,6 +5,7 @@ module.exports = {
       "node": true
     },
     "rules": {
-     "react/jsx-filename-extension": false,
-   }
+      "react/jsx-filename-extension": false,
+     "react/prefer-stateless-function": false
+    }
 };
