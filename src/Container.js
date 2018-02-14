@@ -3,6 +3,8 @@ import './Container.css';
 import NoteTitle from './NoteTitle';
 import LangButton from './LangButton';
 import TasksTitle from './TasksTitle';
+import NoteInstruc from './NoteInstruc';
+import TaskBox from './TaskBox';
 
 export default class Container extends React.Component {
   render() {
@@ -13,6 +15,8 @@ export default class Container extends React.Component {
           <LangButton value="en" />
         </div>
         <TasksTitle />
+        <NoteInstruc value="Please type your note below" />
+        <TaskBox />
       </div>
     );
   }

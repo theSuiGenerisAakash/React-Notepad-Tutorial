@@ -1,0 +1,9 @@
+.noteinstruc {
+  padding: 4% 0%;
+  font-size: 1vw;
+  font-weight: lighter;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
