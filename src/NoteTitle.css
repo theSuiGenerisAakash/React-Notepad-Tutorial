@@ -1,4 +1,6 @@
 .notetitle {
   font-weight: bold;
   font-size: 1vw;
+  position: absolute;
+  left: 0;
 }

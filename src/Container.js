@@ -5,6 +5,7 @@ import LangButton from './LangButton';
 import TasksTitle from './TasksTitle';
 import NoteInstruc from './NoteInstruc';
 import TaskBox from './TaskBox';
+import SaveBtn from './SaveBtn';
 
 export default class Container extends React.Component {
   render() {
@@ -17,6 +18,9 @@ export default class Container extends React.Component {
         <TasksTitle />
         <NoteInstruc value="Please type your note below" />
         <TaskBox />
+        <div className="row">
+          <SaveBtn />
+        </div>
       </div>
     );
   }
