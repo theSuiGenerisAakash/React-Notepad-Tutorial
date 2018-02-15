@@ -21,11 +21,13 @@ export default class TaskBox extends React.Component {
       <textarea
         maxLength={this.props.maxLength}
         className={this.state.class}
+        value={this.props.note}
         onChange={(event) => {
         this.handleChange(event);
-        this.props.countChars(event);
+        this.props.countNoteChars(event);
+        }
       }
-    } />
+      />
     );
   }
 }

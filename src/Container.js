@@ -14,11 +14,35 @@ export default class Container extends React.Component {
     this.state = {
       remChars: 120,
       maxChars: 120,
+      title: '',
+      note: '',
+      notes: [],
     };
   }
 
-  countChars = (event) => {
-    this.setState({ remChars: this.state.maxChars - event.target.value.length });
+  getTitle = (event) => {
+    this.setState({
+      title: event.target.value,
+    });
+  }
+
+  saveNote = () => {
+    if (this.state.title.length > 0 && this.state.note.length > 0) {
+      this.setState({
+        notes: [...this.state.notes, { title: this.state.title, note: this.state.note }],
+        note: '',
+        title: '',
+      }, () => {
+        console.log(this.state.notes);
+      });
+    }
+  }
+
+  countNoteChars = (event) => {
+    this.setState({
+      remChars: this.state.maxChars - event.target.value.length,
+      note: event.target.value,
+    });
   }
 
   render() {
@@ -28,11 +52,18 @@ export default class Container extends React.Component {
           <NoteTitle value="Note Title" />
           <LangButton value="en" />
         </div>
-        <TasksTitle />
+        <TasksTitle
+          getTitle={this.getTitle}
+          title={this.state.title}
+        />
         <NoteInstruc value="Please type your note below" />
-        <TaskBox countChars={this.countChars} maxLength={this.state.maxChars} />
+        <TaskBox
+          countNoteChars={this.countNoteChars}
+          note={this.state.note}
+          maxLength={this.state.maxChars}
+        />
         <div className="row">
-          <SaveBtn />
+          <SaveBtn saveNote={this.saveNote} />
           <NoOfChars value={this.state.remChars} />
         </div>
       </div>
