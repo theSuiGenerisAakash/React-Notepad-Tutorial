@@ -1,9 +1,7 @@
 .noteinstruc {
   padding: 2% 0%;
-  font-size: 1vw;
+  font-size: 1.5vw;
   font-weight: lighter;
-  -ms-align-items: center;
-  flex-grow: 1;
-  flex-direction: row;
-  align-items: center;
+  display: flex;
+  align-items: baseline;
 }

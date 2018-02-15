@@ -8,3 +8,16 @@
   resize: none;
   min-height: 300px;
 }
+
+.taskbox-error {
+  width: 100%;
+  font-size: 1vw;
+  padding: 0.5vw;
+  box-sizing: border-box;
+  border: 1px solid #757575;
+  border-radius: 2px;
+  resize: none;
+  min-height: 300px;
+  color: #D8000C;
+  background-color: #FFBABA;
+}

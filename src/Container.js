@@ -6,8 +6,21 @@ import TasksTitle from './TasksTitle';
 import NoteInstruc from './NoteInstruc';
 import TaskBox from './TaskBox';
 import SaveBtn from './SaveBtn';
+import NoOfChars from './NoOfChars';
 
 export default class Container extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      remChars: 120,
+      maxChars: 120,
+    };
+  }
+
+  countChars = (event) => {
+    this.setState({ remChars: this.state.maxChars - event.target.value.length });
+  }
+
   render() {
     return (
       <div className="container">
@@ -17,9 +30,10 @@ export default class Container extends React.Component {
         </div>
         <TasksTitle />
         <NoteInstruc value="Please type your note below" />
-        <TaskBox />
+        <TaskBox countChars={this.countChars} maxLength={this.state.maxChars} />
         <div className="row">
           <SaveBtn />
+          <NoOfChars value={this.state.remChars} />
         </div>
       </div>
     );
