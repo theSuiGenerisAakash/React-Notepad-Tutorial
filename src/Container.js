@@ -32,6 +32,7 @@ export default class Container extends React.Component {
         notes: [...this.state.notes, { title: this.state.title, note: this.state.note }],
         note: '',
         title: '',
+        remChars: this.state.maxChars,
       }, () => {
         console.log(this.state.notes);
       });
