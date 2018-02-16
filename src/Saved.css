@@ -1,0 +1,12 @@
+.Saved-button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    white-space: nowrap;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}

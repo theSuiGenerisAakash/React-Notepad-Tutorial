@@ -10,6 +10,8 @@ import NoOfChars from './NoOfChars';
 import OpenSaved from './OpenSaved';
 import Saved from './Saved';
 
+const uniqueRandom = require('unique-random');
+
 export default class Container extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +20,7 @@ export default class Container extends React.Component {
       maxChars: 120,
       title: '',
       note: '',
+      currId: -1,
       notes: [],
     };
   }
@@ -28,20 +31,33 @@ export default class Container extends React.Component {
     });
   }
 
-  idCounter = 0;
+rand = uniqueRandom(1, 1000);
 
   saveNote = () => {
     if (this.state.title.length > 0 && this.state.note.length > 0) {
-      this.idCounter += 1;
-      this.setState({
-        notes: [...this.state.notes,
-          { title: this.state.title, note: this.state.note, id: this.idCounter }],
-        note: '',
-        title: '',
-        remChars: this.state.maxChars,
-      }, () => {
-        console.log(this.state.notes);
-      });
+      if (this.state.currId === -1) {
+        this.setState({
+          notes: [...this.state.notes,
+            { title: this.state.title, note: this.state.note, id: this.rand() }],
+          note: '',
+          title: '',
+          remChars: this.state.maxChars,
+        });
+      } else {
+        const arrayAfterDel = [...this.state.notes]
+          .splice(this.state.notes.find(e => e.id === this.state.currId), 1);
+        this.setState({
+          notes: [...arrayAfterDel,
+            { title: this.state.title, note: this.state.note, id: this.state.currId }],
+          note: '',
+          title: '',
+          remChars: this.state.maxChars,
+        }, () => {
+          this.setState({
+            currId: -1,
+          });
+        });
+      }
     }
   }
 
@@ -57,7 +73,13 @@ export default class Container extends React.Component {
   }
 
   giveMyID = (id) => {
-    console.log(id);
+    const objRW = this.state.notes.find(e => e.id === id);
+    this.setState({
+      title: objRW.title,
+      note: objRW.note,
+      currId: this.state.id,
+    });
+    this.props.changeLayout(0);
   }
 
   populateSavedNotes = () => {
