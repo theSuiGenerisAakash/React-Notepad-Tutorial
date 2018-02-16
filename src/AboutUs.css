@@ -1,12 +1,13 @@
 .aboutus {
-  padding: 5% 45%;
-  align-items: center;
+  padding: 5%;
   font-size: 2vw;
   font-family: sans-serif;
+  display: flex;
 }
 
-.aboutus button {
+.aboutus > button {
   font-size: 1.5vw;
+  flex-grow: 1;
   font-family: sans-serif;
   background-color: Transparent;
   background-repeat:no-repeat;

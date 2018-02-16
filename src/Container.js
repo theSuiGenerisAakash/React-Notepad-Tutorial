@@ -7,6 +7,8 @@ import NoteInstruc from './NoteInstruc';
 import TaskBox from './TaskBox';
 import SaveBtn from './SaveBtn';
 import NoOfChars from './NoOfChars';
+import OpenSaved from './OpenSaved';
+import Saved from './Saved';
 
 export default class Container extends React.Component {
   constructor(props) {
@@ -46,26 +48,48 @@ export default class Container extends React.Component {
     });
   }
 
+  openSaved = () => {
+    this.props.changeLayout(1);
+  }
+
+  populateSavedNotes = () => {
+    const savedItems = [];
+    this.state.notes.forEach((objNote, idx) => {
+      savedItems.push(<Saved title={objNote.title} note={objNote.note} key={idx + 1} />);
+    });
+    return savedItems;
+  }
+
   render() {
+    if (this.props.layout === 0) {
+      return (
+        <div className="container">
+          <div className="row">
+            <NoteTitle value="Note Title" />
+            <LangButton value="en" />
+          </div>
+          <TasksTitle
+            getTitle={this.getTitle}
+            title={this.state.title}
+          />
+          <NoteInstruc value="Please type your note below" />
+          <TaskBox
+            countNoteChars={this.countNoteChars}
+            note={this.state.note}
+            maxLength={this.state.maxChars}
+          />
+          <div className="row">
+            <SaveBtn saveNote={this.saveNote} />
+            <NoOfChars value={this.state.remChars} />
+          </div>
+          <OpenSaved value="Open Saved Items" openSaved={this.openSaved} />
+        </div>
+      );
+    }
     return (
       <div className="container">
-        <div className="row">
-          <NoteTitle value="Note Title" />
-          <LangButton value="en" />
-        </div>
-        <TasksTitle
-          getTitle={this.getTitle}
-          title={this.state.title}
-        />
-        <NoteInstruc value="Please type your note below" />
-        <TaskBox
-          countNoteChars={this.countNoteChars}
-          note={this.state.note}
-          maxLength={this.state.maxChars}
-        />
-        <div className="row">
-          <SaveBtn saveNote={this.saveNote} />
-          <NoOfChars value={this.state.remChars} />
+        <div className="column">
+          {this.populateSavedNotes()}
         </div>
       </div>
     );

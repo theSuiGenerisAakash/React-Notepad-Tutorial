@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  position: relative;
 }
 
 .row {
@@ -11,5 +12,11 @@
   flex-direction: row;
   flex-grow: 1;
   position: relative;
+  padding: 3%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
   padding: 3%;
 }
