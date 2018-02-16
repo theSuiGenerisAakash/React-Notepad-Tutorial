@@ -28,10 +28,14 @@ export default class Container extends React.Component {
     });
   }
 
+  idCounter = 0;
+
   saveNote = () => {
     if (this.state.title.length > 0 && this.state.note.length > 0) {
+      this.idCounter += 1;
       this.setState({
-        notes: [...this.state.notes, { title: this.state.title, note: this.state.note }],
+        notes: [...this.state.notes,
+          { title: this.state.title, note: this.state.note, id: this.idCounter }],
         note: '',
         title: '',
         remChars: this.state.maxChars,
@@ -52,10 +56,14 @@ export default class Container extends React.Component {
     this.props.changeLayout(1);
   }
 
+  giveMyID = (id) => {
+    console.log(id);
+  }
+
   populateSavedNotes = () => {
     const savedItems = [];
-    this.state.notes.forEach((objNote, idx) => {
-      savedItems.push(<Saved title={objNote.title} note={objNote.note} key={idx + 1} />);
+    this.state.notes.forEach((objNote) => {
+      savedItems.push(<Saved obj={objNote} key={objNote.id} giveMyID={this.giveMyID} />);
     });
     return savedItems;
   }
