@@ -44,11 +44,15 @@ rand = uniqueRandom(1, 1000);
           remChars: this.state.maxChars,
         });
       } else {
-        const arrayAfterDel = [...this.state.notes]
-          .splice(this.state.notes.find(e => e.id === this.state.currId), 1);
+        const renenwedArr = [];
+        for (let i = 0; i < this.state.notes.length; i += 1) {
+          if (this.state.notes[i].id !== this.state.currId) {
+            renenwedArr.push(this.state.notes[i]);
+          }
+        }
         this.setState({
-          notes: [...arrayAfterDel,
-            { title: this.state.title, note: this.state.note, id: this.state.currId }],
+          notes: [{ title: this.state.title, note: this.state.note, id: this.state.currId },
+            ...renenwedArr],
           note: '',
           title: '',
           remChars: this.state.maxChars,
@@ -74,12 +78,14 @@ rand = uniqueRandom(1, 1000);
 
   giveMyID = (id) => {
     const objRW = this.state.notes.find(e => e.id === id);
+    console.log(id);
     this.setState({
       title: objRW.title,
       note: objRW.note,
-      currId: this.state.id,
+      currId: id,
+    }, () => {
+      this.props.changeLayout(0);
     });
-    this.props.changeLayout(0);
   }
 
   populateSavedNotes = () => {
