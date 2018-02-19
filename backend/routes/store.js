@@ -5,10 +5,11 @@ module.exports = [
     method: 'POST',
     path: '/store',
     handler: (request, response) => {
-      const { payload: { notes } } = request;
+      console.log(request.payload);
+      const notes = request.payload;
       const promiseArr = [];
       notes.forEach((elem) => {
-        promiseArr.push(Models.Books.upsert({
+        promiseArr.push(Models.Notes.upsert({
           userid: elem.id,
           title: elem.title,
           note: elem.note,

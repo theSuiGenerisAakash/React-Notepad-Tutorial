@@ -1,0 +1,11 @@
+.SyncBtn-button {
+  font-weight: bold;
+  font-size: 1.3vw;
+  border-radius: 6px;
+  padding: 1.8%;
+  background-color: #EBE9E9;
+  align-self: center;
+  flex-grow: 1;
+  position: absolute;
+  right: 7%;
+}

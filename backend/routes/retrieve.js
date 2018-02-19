@@ -3,9 +3,9 @@ const Models = require('../models');
 module.exports = [
   {
     method: 'GET',
-    path: '/store',
+    path: '/retrieve',
     handler: (request, response) => {
-      Models.Books.findAll({
+      Models.Notes.findAll({
         attributes: ['userid', 'title', 'note'],
       }).then((notesArr) => {
         response({

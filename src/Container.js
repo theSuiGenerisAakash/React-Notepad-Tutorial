@@ -12,6 +12,7 @@ import NoOfChars from './NoOfChars';
 import OpenSaved from './OpenSaved';
 import Saved from './Saved';
 import { saveNote, editNote } from './redux/actions';
+import SyncBtn from './SyncBtn';
 
 const uniqueRandom = require('unique-random');
 
@@ -25,6 +26,17 @@ class Container extends React.Component {
       note: '',
       currID: -1,
     };
+  }
+
+  componentDidMount() {
+    fetch('/retrieve')
+      .then(response => response.json())
+      .then((proposals) => {
+        proposals.notesArr.forEach((note) => {
+          console.log(note.userid);
+          this.props.dispatchSave(note.userid, note.title, note.note);
+        });
+      });
   }
 
   getTitle = (event) => {
@@ -85,6 +97,7 @@ class Container extends React.Component {
         <div className="container">
           <div className="row">
             <NoteTitle value="Note Title" />
+            <SyncBtn value="Sync Now" notes={this.props.allNotes} />
             <LangButton value="en" />
           </div>
           <TasksTitle

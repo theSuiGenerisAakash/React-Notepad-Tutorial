@@ -3,7 +3,7 @@ const Routes = require('./routes');
 
 const server = new Hapi.Server();
 server.connection({
-  port: 666,
+  port: 8080,
   host: 'localhost',
 });
 
@@ -14,7 +14,7 @@ if (!module.parent) {
     if (err) {
       throw (err);
     }
-    console.log('Server started at port 666');
+    console.log('Server started at port 6666');
   });
 }
 
