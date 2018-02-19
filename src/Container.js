@@ -1,4 +1,5 @@
 import React from 'react';
+import PT from 'prop-types';
 import { connect } from 'react-redux';
 import './Container.css';
 import NoteTitle from './NoteTitle';
@@ -122,5 +123,25 @@ const mapDispatchToProps = dispatch => ({
   dispatchSave: (id, title, note) => dispatch(saveNote(id, title, note)),
   dispatchEdit: (currID, title, note) => dispatch(editNote(currID, title, note)),
 });
+
+Container.propTypes = {
+  layout: PT.number,
+  allNotes: PT.arrayOf(PT.shape({
+    title: PT.string,
+    note: PT.string,
+    id: PT.number,
+  })),
+  dispatchSave: PT.func,
+  dispatchEdit: PT.func,
+  changeLayout: PT.func,
+};
+
+Container.defaultProps = {
+  layout: 0,
+  allNotes: [],
+  dispatchSave: () => {},
+  dispatchEdit: () => {},
+  changeLayout: () => {},
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);
