@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './Container.css';
 import NoteTitle from './NoteTitle';
 import LangButton from './LangButton';
@@ -9,10 +10,11 @@ import SaveBtn from './SaveBtn';
 import NoOfChars from './NoOfChars';
 import OpenSaved from './OpenSaved';
 import Saved from './Saved';
+import { saveNote, editNote } from './redux/actions';
 
 const uniqueRandom = require('unique-random');
 
-export default class Container extends React.Component {
+class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,8 +22,7 @@ export default class Container extends React.Component {
       maxChars: 120,
       title: '',
       note: '',
-      currId: -1,
-      notes: [],
+      currID: -1,
     };
   }
 
@@ -31,38 +32,20 @@ export default class Container extends React.Component {
     });
   }
 
-rand = uniqueRandom(1, 1000);
-
   saveNote = () => {
     if (this.state.title.length > 0 && this.state.note.length > 0) {
-      if (this.state.currId === -1) {
-        this.setState({
-          notes: [...this.state.notes,
-            { title: this.state.title, note: this.state.note, id: this.rand() }],
-          note: '',
-          title: '',
-          remChars: this.state.maxChars,
-        });
+      const rand = uniqueRandom(1, 1000);
+      if (this.state.currID === -1) {
+        this.props.dispatchSave(rand(), this.state.title, this.state.note);
       } else {
-        const renenwedArr = [];
-        for (let i = 0; i < this.state.notes.length; i += 1) {
-          if (this.state.notes[i].id !== this.state.currId) {
-            renenwedArr.push(this.state.notes[i]);
-          }
-        }
-        this.setState({
-          notes: [{ title: this.state.title, note: this.state.note, id: this.state.currId },
-            ...renenwedArr],
-          note: '',
-          title: '',
-          remChars: this.state.maxChars,
-        }, () => {
-          this.setState({
-            currId: -1,
-          });
-        });
+        this.props.dispatchEdit(this.state.currID, this.state.title, this.state.note);
+        this.setState({ currID: -1 });
       }
     }
+    this.setState({
+      title: '',
+      note: '',
+    });
   }
 
   countNoteChars = (event) => {
@@ -77,12 +60,11 @@ rand = uniqueRandom(1, 1000);
   }
 
   giveMyID = (id) => {
-    const objRW = this.state.notes.find(e => e.id === id);
-    console.log(id);
+    const objRW = this.props.allNotes.find(e => e.id === id);
     this.setState({
       title: objRW.title,
       note: objRW.note,
-      currId: id,
+      currID: id,
     }, () => {
       this.props.changeLayout(0);
     });
@@ -90,7 +72,7 @@ rand = uniqueRandom(1, 1000);
 
   populateSavedNotes = () => {
     const savedItems = [];
-    this.state.notes.forEach((objNote) => {
+    this.props.allNotes.forEach((objNote) => {
       savedItems.push(<Saved obj={objNote} key={objNote.id} giveMyID={this.giveMyID} />);
     });
     return savedItems;
@@ -131,3 +113,14 @@ rand = uniqueRandom(1, 1000);
     );
   }
 }
+
+const mapStateToProps = state => ({
+  allNotes: state.saveOrEdit,
+});
+
+const mapDispatchToProps = dispatch => ({
+  dispatchSave: (id, title, note) => dispatch(saveNote(id, title, note)),
+  dispatchEdit: (currID, title, note) => dispatch(editNote(currID, title, note)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
