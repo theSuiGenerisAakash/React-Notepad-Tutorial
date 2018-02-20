@@ -13,6 +13,10 @@ module.exports = [
           userid: elem.id,
           title: elem.title,
           note: elem.note,
+        }, {
+          where: {
+            userid: elem.id,
+          },
         }));
       });
       Promise.all(promiseArr).then(() => {
